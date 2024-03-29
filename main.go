@@ -57,8 +57,8 @@ func process(w http.ResponseWriter, r *http.Request) {
 `		<form method='POST' action='/'><input name='code' type='text'><input type='submit' value='Enter'></form>`);
 		return;
 	}
-	if r.Method == "POST" && r.Header.Get("Content-Type") == "multipart/form-data" {
-		r.ParseMultipartForm(32 << 20);
+	if r.Method == "POST"/* && r.Header.Get("Content-Type") == "multipart/form-data"*/ {
+		r.ParseMultipartForm(1024 * 1024 * 1024);
 		file, handler, err := r.FormFile("uploadfile");
 		if (err != nil) {
 			show_error(w, "Cannot get form file", err);
