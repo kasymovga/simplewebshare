@@ -96,11 +96,16 @@ func process(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	if len(os.Args) < 3 {
-		fmt.Printf("Usage: " + os.Args[0] + " [directory] [code]\n");
+		fmt.Printf("Usage: %s <directory> <passcode> [host:port]\n", os.Args[0]);
 		return;
+	}
+	var port string = ":8080";
+	if len(os.Args) >= 4 {
+		port = os.Args[3];
 	}
 	base_directory = os.Args[1];
 	code = os.Args[2];
 	http.HandleFunc("/", process);
-	http.ListenAndServe(":8080", nil);
+	http.ListenAndServe(port, nil);
+	fmt.Printf("Listen of %s failed\n", port);
 }
